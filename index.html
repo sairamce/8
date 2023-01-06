@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        textarea{
+            display: none;
+        }
+    </style>
+    
+</head>
+<body onload="copy()" >
+    <textarea id="my">
+        from sklearn.datasets import load_iris
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import train_test_split
+import numpy as np
+
+dataset=load_iris()
+#print(dataset)
+X_train,X_test,y_train,y_test=train_test_split(dataset["data"],dataset["target"],random_state=0)
+
+kn=KNeighborsClassifier(n_neighbors=1)
+kn.fit(X_train,y_train)
+
+for i in range(len(X_test)):
+    x=X_test[i]
+    x_new=np.array([x])
+    prediction=kn.predict(x_new)
+    print("TARGET=",y_test[i],dataset["target_names"][y_test[i]],"PREDICTED=",prediction,dataset["target_names"][prediction])
+print(kn.score(X_test,y_test))
+       
+    </textarea>
+  
+    <script>
+        const copy=()=>{
+            var copyText = document.getElementById("my");
+
+           
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); 
+          
+            navigator.clipboard.writeText(copyText.value);
+       
+    }
+    </script>
+</body>
+</html>
